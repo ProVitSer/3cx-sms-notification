@@ -1,30 +1,22 @@
-let log4js = require(`log4js`);
+"use strict";
+const log4js = require(`log4js`);
 
-log4js.configure(
-  {
+log4js.configure({
     appenders: {
-      smsLogs: {
-        type: `file`,
-        filename: `./logs/sms.log`,
-        maxLogSize: 10 * 1024 * 1024, 
-        backups: 3
-      },
-	 error: {
-        type: `file`,
-        filename: `./logs/error.log`,
-        maxLogSize: 10 * 1024 * 1024, 
-        backups: 3
-      } 
+        log3cx: {
+            type: `file`,
+            filename: `logs/debug.log`,
+            maxLogSize: 10485760,
+            backups: 3,
+            compress: true
+        }
     },
     categories: {
-      default : { appenders: [`smsLogs`], level: `info` },
-	  error : { appenders: [`error`], level: `error` }
+        default: {
+            appenders: [`log3cx`],
+            level: `debug`
+        }
     }
-  }
-);
-
-
-module.exports = { 
-	access: log4js.getLogger(`default`),
-	error: log4js.getLogger(`error`)
-};
+});
+const logger = log4js.getLogger(`voip`);
+module.exports = logger;

@@ -5,7 +5,7 @@
     Tail = require(`tail`).Tail;
 
 
-let api = new telegram({
+const api = new telegram({
     token: appConfig.telegram.token,
     updates: {
         enabled: true,
@@ -13,7 +13,7 @@ let api = new telegram({
     }
 });
 
-let options = {
+const options = {
     path: `?`,
     method: `GET`,
     params: {
@@ -26,7 +26,7 @@ let options = {
     }
 }
 
-tail = new Tail(appConfig.cdrPath, {
+const tail = new Tail(appConfig.cdrPath, {
     useWatchFile: true
 });
 
